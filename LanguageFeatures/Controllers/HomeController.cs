@@ -45,5 +45,22 @@ namespace LanguageFeatures.Controllers
             };
             return View("Result", (object)String.Format("category: {0}", myProduct.Category));
         }
+
+        public ViewResult CreateCollection()
+        {
+            string[] stringArray = { "apple", "orange", "plum" };
+            List<int> intList = new List<int> { 10, 2, 30, 40 };
+            Dictionary<string, int> mydict = new Dictionary<string, int>
+            {
+                { "apple", 10 }, { "orange", 20 }, { "plum", 30 }
+            };
+
+            return View("Result", (object)stringArray[1]);
+
+
+
+
+
+        }
     }
 }
