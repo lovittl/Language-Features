@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LanguageFeatures.Models;
+//using LanguageFeatures.Controllers;
 
 namespace LanguageFeatures.Controllers
 {
@@ -29,7 +30,7 @@ namespace LanguageFeatures.Controllers
             // generate the view
             return View("result",
                 (object)String.Format("Product name: {0}", productName));
-           
+
         }
 
         public ViewResult CreateProduct()
@@ -40,27 +41,29 @@ namespace LanguageFeatures.Controllers
                 ProductID = 100,
                 Name = "Kayak",
                 Description = "a boat for one person",
-                    Price = 275M,
+                Price = 275M,
                 Category = "Watersports"
             };
             return View("Result", (object)String.Format("category: {0}", myProduct.Category));
         }
 
-        public ViewResult CreateCollection()
+        public ViewResult UseExtension()
         {
-            string[] stringArray = { "apple", "orange", "plum" };
-            List<int> intList = new List<int> { 10, 2, 30, 40 };
-            Dictionary<string, int> mydict = new Dictionary<string, int>
+            // create and populate ShoppingCart 
+            ShoppingCart cart = new ShoppingCart
             {
-                { "apple", 10 }, { "orange", 20 }, { "plum", 30 }
+                Products = new List<Product>
+                {
+                    new Product {Name = "Kayak", Price = 275M},
+                    new Product {Name = "Lifejacket", Price = 48.95M},
+                    new Product {Name = "Soccer ball", Price = 19.50M},
+                    new Product {Name = "Corner flag", Price = 34.95M}
+                }
             };
-
-            return View("Result", (object)stringArray[1]);
-
-
-
-
-
+            // get the total value of the products in the cart 
+            decimal cartTotal = cart.TotalPrices();
+            return View("Result", (object)String.Format("Total: {0:c}", cartTotal));
         }
+
     }
 }
